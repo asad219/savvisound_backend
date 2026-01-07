@@ -28,11 +28,16 @@ const getUserById = async (req, res) => {
         
         const user = await User.findById(id);
         
+        
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
+        // Remove passwordHash from response
+        const userResponse = user.toObject();
+        delete userResponse.passwordHash;
         
-        res.status(200).json(user);
+        
+        res.status(200).json(userResponse);
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
