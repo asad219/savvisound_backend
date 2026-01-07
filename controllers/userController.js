@@ -7,6 +7,25 @@ const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
         
+
+        // Extract and verify JWT token
+        const token = req.headers.authorization?.replace('Bearer ', '');
+                
+        if (!token) {
+            return res.status(401).json({ message: 'No token provided' });
+        }
+        
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            
+            // Check if the requested id matches the authenticated user's id
+            if (decoded.userId !== id) {
+                return res.status(403).json({ message: 'Access denied. You can only access your own profile' });
+            }
+        } catch (error) {
+            return res.status(401).json({ message: 'Invalid token' });
+        }
+        
         const user = await User.findById(id);
         
         if (!user) {
