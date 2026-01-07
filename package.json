@@ -1,0 +1,25 @@
+{
+  "name": "savvisound_backend",
+  "version": "2.0.0",
+  "description": "SavviSound Backend",
+  "homepage": "https://github.com/asad219/savvisound_backend#readme",
+  "bugs": {
+    "url": "https://github.com/asad219/savvisound_backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asad219/savvisound_backend.git"
+  },
+  "license": "ISC",
+  "author": "Asad Khan",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.22.1"
+  }
+}
