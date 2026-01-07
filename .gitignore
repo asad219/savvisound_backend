@@ -1,0 +1,5 @@
+/node_modules
+/JSON files
+.env
+db.sqlite3
+*.sqlite3

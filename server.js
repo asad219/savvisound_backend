@@ -1,35 +1,31 @@
 const express = require('express');
+const cors = require('cors');
+const errorHandler = require("./middleware/errorHandler");
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Sample endpoint at /api/v2
-app.get('/api/v2', (req, res) => {
-  res.json({
-    status: 'success',
-    message: 'Welcome to SavviSound API v2',
-    timestamp: new Date().toISOString()
-  });
-});
+// Enable CORS for all routes
+app.use(cors());
 
-// Sample POST endpoint
-app.post('/api/v2/data', (req, res) => {
-  res.json({
-    status: 'success',
-    message: 'Data received',
-    data: req.body
-  });
-});
+// JSON payload limit to 50MB
+app.use(express.json({ limit: "50mb" }));
 
-// Health check endpoint
-app.get('/api/v2/health', (req, res) => {
-  res.json({
-    status: 'healthy',
-    version: '2.0.0'
-  });
-});
+// Enable CORS pre-flight for all routes
+app.options("*", cors());
+
+// Load environment variables
+const dotenv = require("dotenv").config();
+
+// Connect to the database
+const connectDb = require("./config/dbConnection");
+connectDb();
+
+// Centralized route registration
+const routes = require('./routes');
+app.use('/api/v2', routes);
 
 // 404 handler
 app.use((req, res) => {
@@ -38,6 +34,10 @@ app.use((req, res) => {
     message: 'Endpoint not found'
   });
 });
+
+
+// Error handling middleware
+app.use(errorHandler);
 
 // Server configuration
 const PORT = process.env.PORT || 3005;
