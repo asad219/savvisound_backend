@@ -2,141 +2,100 @@ const { User } = require('../models/userModel');
 const { parseUserCreate, parseUserLogin } = require('../validators/user.zod');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const asyncHandler = require('express-async-handler');
+const { sanitizeUserResponse } = require('../utils/userUtils');
+const config = require('../config');
 
-const getUserById = async (req, res) => {
-    try {
-        const { id } = req.params;
-        
-
-        // Extract and verify JWT token
-        const token = req.headers.authorization?.replace('Bearer ', '');
-                
-        if (!token) {
-            return res.status(401).json({ message: 'No token provided' });
-        }
-        
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            
-            // Check if the requested id matches the authenticated user's id
-            if (decoded.userId !== id) {
-                return res.status(403).json({ message: 'Access denied. You can only access your own profile' });
-            }
-        } catch (error) {
-            return res.status(401).json({ message: 'Invalid token' });
-        }
-        
-        const user = await User.findById(id);
-        
-        
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        // Remove passwordHash from response
-        const userResponse = user.toObject();
-        delete userResponse.passwordHash;
-        
-        
-        res.status(200).json(userResponse);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+const getUserById = asyncHandler(async (req, res) => {
+    // Remove try-catch, let middleware handle errors
+    const user = await User.findById(req.params.id);
+    
+    if (!user) {
+        res.status(404);
+        throw new Error('User not found');
     }
-};
+    
+    const userResponse = sanitizeUserResponse(user);
+    
+    res.status(200).json(userResponse);
+});
 
-const registerUser = async (req, res) => {
-    try {
-        // Validate request body with Zod
-        const validatedData = parseUserCreate(req.body);
-        
-        // Check if user already exists
-        const existingUser = await User.findOne({ email: validatedData.email });
-        
-        if (existingUser) {
-            return res.status(400).json({ 
-                message: 'User already exists with this email' 
-            });
-        }
-        
-        // Prepare user data
-        let userData = { ...validatedData };
-        
-        // Hash password if provided
-        if (validatedData.password) {
-            const saltRounds = 10;
-            const hashedPassword = await bcrypt.hash(validatedData.password, saltRounds);
-            userData.passwordHash = hashedPassword;
-            delete userData.password; // Remove plain password
-        }
-        
-        // Create new user
-        const newUser = new User(userData);
-        
-        await newUser.save();
-        
-        // Remove passwordHash from response
-        const userResponse = newUser.toObject();
-        delete userResponse.passwordHash;
-        delete userResponse.passwordHash;
-        
-        res.status(201).json({
-            message: 'User registered successfully',
-            user: userResponse
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+const registerUser = asyncHandler(async (req, res) => {
+    // Validate request body with Zod
+    const validatedData = parseUserCreate(req.body);
+    
+    // Check if user already exists
+    const existingUser = await User.findOne({ email: validatedData.email });
+    
+    if (existingUser) {
+        res.status(400);
+        throw new Error('User already exists with this email');
     }
-};
+    
+    // Prepare user data
+    let userData = { ...validatedData };
+    
+    // Hash password if provided
+    if (validatedData.password) {
+        const hashedPassword = await bcrypt.hash(validatedData.password, config.security.bcryptRounds);
+        userData.passwordHash = hashedPassword;
+        delete userData.password; // Remove plain password
+    }
+    
+    // Create new user
+    const newUser = new User(userData);
+    
+    await newUser.save();
+    
+    const userResponse = sanitizeUserResponse(newUser);
+    
+    res.status(201).json({
+        message: 'User registered successfully',
+        user: userResponse
+    });
+});
 
-const loginUser = async (req, res) => {
-    try {
-        // Validate request body with Zod
-        const validatedData = parseUserLogin(req.body);
-        
-        // Find user by email
-        const user = await User.findOne({ email: validatedData.email });
-        
-        if (!user) {
-            return res.status(401).json({ 
-                message: 'Invalid email or password' 
-            });
-        }
-        
-        // Check if user has a password
-        if (!user.passwordHash) {
-            return res.status(401).json({ 
-                message: 'Invalid email or password' 
-            });
-        }
-        
-        // Verify password
-        const isValidPassword = await bcrypt.compare(validatedData.password, user.passwordHash);
-        
-        if (!isValidPassword) {
-            return res.status(401).json({ 
-                message: 'Invalid email or password' 
-            });
-        }
-        
-        // Generate JWT token
-        const token = jwt.sign(
-            { userId: user._id, email: user.email },
-            process.env.JWT_SECRET,
-            { expiresIn: '24h' }
-        );
-        
-        // Remove passwordHash from response
-        const userResponse = user.toObject();
-        delete userResponse.passwordHash;
-        
-        res.status(200).json({
-            message: 'Login successful',
-            token,
-            user: userResponse
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+const loginUser = asyncHandler(async (req, res) => {
+    // Validate request body with Zod
+    const validatedData = parseUserLogin(req.body);
+    
+    // Find user by email
+    const user = await User.findOne({ email: validatedData.email });
+    
+    if (!user) {
+        res.status(401);
+        throw new Error('Invalid email or password');
     }
-};
+    
+    // Check if user has a password
+    if (!user.passwordHash) {
+        res.status(401);
+        throw new Error('Invalid email or password');
+    }
+    
+    // Verify password
+    const isValidPassword = await bcrypt.compare(validatedData.password, user.passwordHash);
+    
+    if (!isValidPassword) {
+        res.status(401);
+        throw new Error('Invalid email or password');
+    }
+    
+    // Generate JWT token
+    const token = jwt.sign(
+        { userId: user._id, email: user.email },
+        config.jwt.secret,
+        { expiresIn: config.jwt.expiresIn }
+    );
+    
+    const userResponse = sanitizeUserResponse(user);
+    
+    res.status(200).json({
+        message: 'Login successful',
+        token,
+        user: userResponse
+    });
+});
 
 module.exports = {
     getUserById,
