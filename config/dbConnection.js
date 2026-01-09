@@ -1,16 +1,13 @@
 const mongoose = require("mongoose");
+const logger = require('../config/logger');
 
 const dbConnect = async () => {
   try {
     const connect = await mongoose.connect(process.env.CONNECTION_STRING);
-    console.log(
-      "Database connected: ",
-      connect.connection.host,
-      connect.connection.name
-    );
+    logger.info('Database connected: ', connect.connection.host, connect.connection.name);
   } catch (err) {
-    console.log(err);
-    process.exit;
+    logger.error('Database connection error: ', err);
+    process.exit(1);
   }
 };
 module.exports = dbConnect;

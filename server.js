@@ -16,17 +16,22 @@ const config = require('./config');
 app.use(morgan('combined', {
   stream: { write: (message) => logger.info(message.trim()) }
 }));
+
 // Security headers
 app.use(helmet());
+
 // Prevent NoSQL injection
 app.use(mongoSanitize());
+
 // Prevent XSS attacks
 app.use(xss());
-// Body parsers
-app.use(express.json());
+
+// Body parsers for JSON and URL-encoded data
+// JSON payloads
+app.use(express.json({ limit: "5mb" }));
+
 // URL-encoded payloads
 app.use(express.urlencoded({ extended: true }));
-
 
 // CORS configuration
 app.use(cors({
@@ -34,18 +39,17 @@ app.use(cors({
    credentials: true
  }));
 
-// JSON payload limit to 5MB
-app.use(express.json({ limit: "5mb" }));
-
 // Enable CORS pre-flight for all routes
 app.options("*", cors());
-
-
 
 // Connect to the database
 const connectDb = require("./config/dbConnection");
 const swaggerOptions = require('./config/swaggerConfig');
 connectDb();
+
+// Health check endpoint
+const healthRoutes = require('./routes/healthRoutes');
+app.use('/health', healthRoutes);
 
 // Swagger documentation setup
 const specs = swaggerJsdoc(swaggerOptions);
@@ -62,7 +66,6 @@ app.use((req, res) => {
     message: 'Endpoint not found'
   });
 });
-
 
 // Error handling middleware
 app.use(errorHandler);

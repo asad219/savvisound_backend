@@ -17,18 +17,18 @@ module.exports = {
     uri: process.env.CONNECTION_STRING,
     options: {
       useNewUrlParser: true,
-      useUnifiedTopology: true
-    }
+      useUnifiedTopology: true,
+    },
   },
   jwt: {
     secret: process.env.JWT_SECRET,
-    expiresIn: process.env.JWT_EXPIRES_IN || '24h'
+    expiresIn: process.env.JWT_EXPIRES_IN || '24h',
   },
   cors: {
-    origin: process.env.ALLOWED_ORIGINS?.split(',') || 'http://localhost:3000'
+    origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
   },
   security: {
     bcryptRounds: parseInt(process.env.BCRYPT_ROUNDS || '10'),
-    maxLoginAttempts: parseInt(process.env.MAX_LOGIN_ATTEMPTS || '5')
-  }
+    maxLoginAttempts: parseInt(process.env.MAX_LOGIN_ATTEMPTS || '5'),
+  },
 };
