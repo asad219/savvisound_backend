@@ -191,3 +191,7 @@
 {"level":"info","message":"SavviSound API v2-dev is running on port 5005","service":"savvisound-api","timestamp":"2026-01-09 09:49:05"}
 {"level":"info","message":"Environment: development","service":"savvisound-api","timestamp":"2026-01-09 09:49:05"}
 {"level":"info","message":"API Documentation available at: http://localhost:5005/api-docs","service":"savvisound-api","timestamp":"2026-01-09 09:49:05"}
+{"level":"info","message":"SavviSound API v2-dev is running on port 5005","service":"savvisound-api","timestamp":"2026-01-09 09:49:10"}
+{"level":"info","message":"Environment: development","service":"savvisound-api","timestamp":"2026-01-09 09:49:10"}
+{"level":"info","message":"API Documentation available at: http://localhost:5005/api-docs","service":"savvisound-api","timestamp":"2026-01-09 09:49:10"}
+{"level":"info","message":"Database connected: ","service":"savvisound-api","timestamp":"2026-01-09 09:49:12"}
