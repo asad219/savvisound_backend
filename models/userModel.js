@@ -1,18 +1,22 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-const userSchema = new Schema({
-  email: { type: String, unique: true, required: true },
-  passwordHash: String,
-  name: String,
-  lastName: String,
-  phone: String,
-  profilePicUrl: String,
-  weight: Number,
-  weightSymbol: String,
-  customerId: { type: Schema.Types.ObjectId },
-  quizId: { type: Schema.Types.ObjectId, ref: "Quiz" }
-}, { timestamps: true });
+const userSchema = new Schema(
+  {
+    email: { type: String, unique: true, required: true },
+    passwordHash: String,
+    name: String,
+    lastName: String,
+    phone: String,
+    profilePicUrl: String,
+    weight: Number,
+    weightSymbol: String,
+    customerId: { type: Schema.Types.ObjectId },
+    quizId: { type: Schema.Types.ObjectId, ref: 'Quiz' },
+    role: { type: String, enum: ['admin', 'user'], default: 'user' },
+  },
+  { timestamps: true }
+);
 
 
 userSchema.virtual('id').get(function(){

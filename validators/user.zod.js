@@ -7,11 +7,13 @@ const objectId = z
 
 // Base user schema that mirrors the Mongoose model fields
 const baseUserFields = {
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z.string()
-    .min(8, { message: "Password must be at least 8 characters" })
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/, 
-      { message: "Password must contain uppercase, lowercase, number, and special character" }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters' })
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/, {
+      message: 'Password must contain uppercase, lowercase, number, and special character',
+    }),
 
   // In last API, Lee instructed to remove strong password requirement
   // password: z.string().min(1, { message: "Password must be at least 1 character" }),
@@ -23,6 +25,7 @@ const baseUserFields = {
   weightSymbol: z.string().min(1).optional(),
   customerId: objectId.optional(),
   quizId: objectId.optional(),
+  role: z.enum(['admin', 'user']).optional(),
 };
 
 // Strict create schema: requires email, others optional to match model

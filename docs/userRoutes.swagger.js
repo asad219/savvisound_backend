@@ -41,6 +41,11 @@
  *         lastName:
  *           type: string
  *           description: User last name
+ *         role:
+ *           type: string
+ *           enum: [admin, user]
+ *           default: user
+ *           description: User role (defaults to 'user' if not provided)
  *     UserLogin:
  *       type: object
  *       required:
@@ -53,7 +58,7 @@
  *           description: User email address
  *         password:
  *           type: string
- *           description: User password
+ *           description: User password       
  *     AuthResponse:
  *       type: object
  *       properties:
