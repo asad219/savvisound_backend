@@ -17,7 +17,7 @@
   "files.exclude": {
     "**/node_modules": true,
     "**/.git": true,
-    "**/logs": true,
-    "**/.env": true
+    "**/logs": true
+    // "**/.env": true
   }
 }
