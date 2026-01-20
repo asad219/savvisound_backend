@@ -6,6 +6,7 @@ const userSchema = new Schema(
     email: { type: String, unique: true, required: true },
     passwordHash: String,
     name: String,
+    firstName: String,
     lastName: String,
     phone: String,
     profilePicUrl: String,
@@ -14,6 +15,7 @@ const userSchema = new Schema(
     customerId: { type: Schema.Types.ObjectId },
     quizId: { type: Schema.Types.ObjectId, ref: 'Quiz' },
     role: { type: String, enum: ['admin', 'user'], default: 'user' },
+    colorId: { type: Schema.Types.ObjectId, ref: 'Color' },
   },
   { timestamps: true }
 );

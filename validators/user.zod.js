@@ -18,6 +18,7 @@ const baseUserFields = {
   // In last API, Lee instructed to remove strong password requirement
   // password: z.string().min(1, { message: "Password must be at least 1 character" }),
   name: z.string().min(1).optional(),
+  firstName: z.string().min(1).optional(),
   lastName: z.string().min(1).optional(),
   phone: z.string().min(3).optional(),
   profilePicUrl: z.string().url().optional(),
@@ -26,6 +27,7 @@ const baseUserFields = {
   customerId: objectId.optional(),
   quizId: objectId.optional(),
   role: z.enum(['admin', 'user']).optional(),
+  colorId: objectId.optional(),
 };
 
 // Strict create schema: requires email, others optional to match model

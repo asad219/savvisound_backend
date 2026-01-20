@@ -3,10 +3,11 @@ const userRoutes = require('./userRoutes');
 const notificationSettingsRoutes = require('./notificationSettingsRoutes');
 const quizRoutes = require('./quizRoutes');
 const quizOptionRoutes = require('./quizOptionRoutes');
+const audioFileRoutes = require('./audioFileRoutes');
 
 const router = express.Router();
 
-// Mount individual route modules
+// Mount user routes
 router.use('/users', userRoutes);
 
 // Mount notification settings routes
@@ -17,4 +18,8 @@ router.use('/quiz', quizRoutes);
 
 // Mount quiz option routes
 router.use('/quiz-option', quizOptionRoutes);
+
+// Mount audio file routes
+router.use('/audio-file', audioFileRoutes);
+
 module.exports = router;

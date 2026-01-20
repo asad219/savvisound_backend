@@ -58,7 +58,51 @@
  *           description: User email address
  *         password:
  *           type: string
- *           description: User password       
+ *           description: User password
+ *     UserUpdate:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: User email address
+ *         password:
+ *           type: string
+ *           minLength: 8
+ *           description: User password (must contain uppercase, lowercase, number, and special character)
+ *         name:
+ *           type: string
+ *           description: User name
+ *         lastName:
+ *           type: string
+ *           description: User last name
+ *         phone:
+ *           type: string
+ *           description: User phone number
+ *         profilePicUrl:
+ *           type: string
+ *           format: uri
+ *           description: Profile picture URL
+ *         weight:
+ *           type: number
+ *           minimum: 0
+ *           description: User weight
+ *         weightSymbol:
+ *           type: string
+ *           description: Weight unit symbol
+ *         customerId:
+ *           type: string
+ *           description: Customer ID (24-char hex ObjectId)
+ *         quizId:
+ *           type: string
+ *           description: Quiz ID (24-char hex ObjectId)
+ *         role:
+ *           type: string
+ *           enum: [admin, user]
+ *           description: User role
+ *         colorId:
+ *           type: string
+ *           description: Color ID (24-char hex ObjectId)
  *     AuthResponse:
  *       type: object
  *       properties:
@@ -153,6 +197,48 @@
  *               $ref: '#/components/schemas/AuthResponse'
  *       401:
  *         description: Unauthorized - Invalid email or password
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /users/update/{userId}:
+ *   put:
+ *     summary: Update user by ID
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserUpdate'
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Invalid user ID format or validation error
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *       404:
+ *         description: User not found
  *       500:
  *         description: Server error
  */

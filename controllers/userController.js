@@ -1,5 +1,5 @@
 const { User } = require('../models/userModel');
-const { parseUserCreate, parseUserLogin } = require('../validators/user.zod');
+const { parseUserCreate, parseUserLogin, parseUserUpdate } = require('../validators/user.zod');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
@@ -97,8 +97,19 @@ const loginUser = asyncHandler(async (req, res) => {
     });
 });
 
+const updateUser = asyncHandler(async (req, res) => {
+    const { userId } = req.params;
+    const validatedData = parseUserUpdate(req.body);
+    const user = await User.findByIdAndUpdate(userId, validatedData, { new: true });
+    res.status(200).json({
+        success: true,
+        user: user
+    });
+});
+
 module.exports = {
     getUserById,
     registerUser,
-    loginUser
+    loginUser,
+    updateUser
 };

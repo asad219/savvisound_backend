@@ -1,23 +1,42 @@
 {
+  // Cursor: Prettier v12+ fails; use v11.0.2: Extensions → Prettier → ⋮ → Install Another Version...
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSaveMode": "modificationsIfAvailable",
-  "prettier.requireConfig": true,
+  "editor.formatOnSaveMode": "file",
+  "prettier.enable": true,
+  "prettier.requireConfig": false,
   "prettier.useEditorConfig": false,
   "[javascript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[markdown]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "files.exclude": {
     "**/node_modules": true,
     "**/.git": true,
     "**/logs": true
-    // "**/.env": true
   }
 }
