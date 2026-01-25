@@ -8,7 +8,7 @@ const config = require('../config');
 
 const getUserById = asyncHandler(async (req, res) => {
     // Remove try-catch, let middleware handle errors
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
     
     if (!user) {
         res.status(404);
@@ -85,7 +85,8 @@ const loginUser = asyncHandler(async (req, res) => {
     const token = jwt.sign(
         { userId: user._id, email: user.email, role: user.role },
         config.jwt.secret,
-        { expiresIn: config.jwt.expiresIn }
+        { expiresIn: config.jwt.expiresIn },
+        { algorithm: 'HS256' }
     );
     
     const userResponse = sanitizeUserResponse(user);

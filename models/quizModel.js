@@ -5,7 +5,8 @@ const quizSchema = new Schema(
   {
     title: String,
     slug: { type: String, unique: true, required: true },
-    order: Number
+    order: Number,
+    maxOptions: { type: Number, required: true }
   },
   { timestamps: true }
 );

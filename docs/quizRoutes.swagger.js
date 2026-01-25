@@ -17,6 +17,9 @@
  *         order:
  *           type: integer
  *           description: Display order
+ *         maxOptions:
+ *           type: integer
+ *           description: Maximum number of options allowed for this quiz
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -65,6 +68,9 @@
  *         order:
  *           type: integer
  *           description: Display order
+ *         maxOptions:
+ *           type: integer
+ *           description: Maximum number of options allowed for this quiz
  *         options:
  *           type: array
  *           items:
@@ -79,6 +85,7 @@
  *       type: object
  *       required:
  *         - slug
+ *         - maxOptions
  *       properties:
  *         title:
  *           type: string
@@ -86,6 +93,9 @@
  *           type: string
  *         order:
  *           type: integer
+ *         maxOptions:
+ *           type: integer
+ *           description: Maximum number of options allowed for this quiz (required, minimum 1)
  *
  * /quiz:
  *   get:
