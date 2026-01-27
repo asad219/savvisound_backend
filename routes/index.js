@@ -4,6 +4,7 @@ const notificationSettingsRoutes = require('./notificationSettingsRoutes');
 const quizRoutes = require('./quizRoutes');
 const quizOptionRoutes = require('./quizOptionRoutes');
 const audioFileRoutes = require('./audioFileRoutes');
+const scheduleRoutes = require('./scheduleRoutes');
 
 const router = express.Router();
 
@@ -21,5 +22,8 @@ router.use('/quiz-option', quizOptionRoutes);
 
 // Mount audio file routes
 router.use('/audio-file', audioFileRoutes);
+
+// Mount schedule routes
+router.use('/schedule', scheduleRoutes);
 
 module.exports = router;

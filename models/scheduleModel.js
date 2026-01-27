@@ -1,76 +1,82 @@
 const mongoose = require('mongoose');
+const {date} = require('zod');
 // Ensure referenced models are registered
 require('./userModel');
 require('./audioFileModel');
-const { Schema, model } = mongoose;
+const {Schema, model} = mongoose;
 
-const scheduleSchema = new Schema(
-  {
+const scheduleSchema = new Schema({
     userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
     audioId: {
-      type: Schema.Types.ObjectId,
-      ref: 'AudioFile',
-      required: true,
+        type: Schema.Types.ObjectId,
+        ref: 'AudioFile',
+        required: true
     },
     type: {
-      type: String,
+        type: String,
+        enum: ['recurring', 'once']
     },
     weekday: {
-      type: String,
+        type: String,
+        enum: [
+            'monday',
+            'tuesday',
+            'wednesday',
+            'thursday',
+            'friday',
+            'saturday',
+            'sunday'
+        ]
     },
     date: {
-      type: String,
+        type: Date
     },
     time: {
-      type: String,
+        type: Date
     },
     hours: {
-      type: Number,
+        type: Number
     },
     minutes: {
-      type: Number,
+        type: Number
     },
     seconds: {
-      type: Number,
+        type: Number
     },
     repeat: {
-      type: Number,
+        type: Number
     },
     status: {
-      type: Boolean,
-      default: true,
+        type: Boolean,
+        default: true
     },
     isDefault: {
-      type: Boolean,
-      default: false,
+        type: Boolean,
+        default: false
     },
     isDeleted: {
-      type: Boolean,
-      default: false,
+        type: Boolean,
+        default: false
     },
     deletedAt: {
-      type: Date,
-      default: null,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
+        type: Date,
+        default: null
+    }
+}, {timestamps: true});
 
 // Virtual id field
 scheduleSchema.virtual('id').get(function () {
-  return this._id.toHexString();
+    return this._id.toHexString();
 });
 
-scheduleSchema.set('toJSON', {
-  virtuals: true,
-});
+scheduleSchema.set('toJSON', {virtuals: true});
 
 const Schedule = model('Schedule', scheduleSchema);
 
-module.exports = { Schedule };
+module.exports = {
+    Schedule
+};
