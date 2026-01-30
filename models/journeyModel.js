@@ -17,6 +17,13 @@ journeySchema.virtual("id").get(function () {
   return this._id.toHexString();
 });
 
+// Virtual relation for journey options
+journeySchema.virtual("journeyOptions", {
+  ref: "JourneyOption",
+  localField: "_id",
+  foreignField: "journeyId",
+});
+
 journeySchema.set("toJSON", {
   virtuals: true,
 });

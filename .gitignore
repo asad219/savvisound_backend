@@ -7,4 +7,5 @@ db.sqlite3
 *.log
 /logs/combined.*
 /logs/error.*
+/logs/error.log
 /data
