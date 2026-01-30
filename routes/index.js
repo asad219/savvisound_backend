@@ -5,6 +5,9 @@ const quizRoutes = require('./quizRoutes');
 const quizOptionRoutes = require('./quizOptionRoutes');
 const audioFileRoutes = require('./audioFileRoutes');
 const scheduleRoutes = require('./scheduleRoutes');
+const hydrationHistoryRoutes = require('./hydrationHistoryRoutes');
+const subscriptionRoutes = require('./subscriptionRoutes');
+
 
 const router = express.Router();
 
@@ -25,5 +28,10 @@ router.use('/audio-file', audioFileRoutes);
 
 // Mount schedule routes
 router.use('/schedule', scheduleRoutes);
+
+// Mount hydration history routes
+router.use('/hydration-history', hydrationHistoryRoutes);
+
+router.use('/subscriptions', subscriptionRoutes);
 
 module.exports = router;

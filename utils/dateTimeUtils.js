@@ -76,10 +76,40 @@ const convertTimeOnlyToDate = (timeString) => {
   return date;
 };
 
+/**
+ * Transform an object by converting specified date/time string fields to Date objects.
+ * Does not mutate the input; returns a shallow copy with converted values.
+ *
+ * @param {Record<string, unknown>} data - Input object (e.g. validated request body)
+ * @param {Object} options
+ * @param {string[]} [options.dateKeys=[]] - Keys whose string values are date-only (YYYY-MM-DD); converted with convertDateOnlyToDate
+ * @param {string[]} [options.timeKeys=[]] - Keys whose string values are time-only (HH:mm:ss); converted with convertTimeOnlyToDate
+ * @returns {Record<string, unknown>} Shallow copy of data with specified keys converted to Date
+ */
+const transformDateFields = (data, options = {}) => {
+  const { dateKeys = [], timeKeys = [] } = options;
+  const transformed = { ...data };
+
+  dateKeys.forEach((key) => {
+    if (transformed[key] != null && typeof transformed[key] === 'string') {
+      transformed[key] = convertDateOnlyToDate(transformed[key]);
+    }
+  });
+
+  timeKeys.forEach((key) => {
+    if (transformed[key] != null && typeof transformed[key] === 'string') {
+      transformed[key] = convertTimeOnlyToDate(transformed[key]);
+    }
+  });
+
+  return transformed;
+};
+
 module.exports = {
   formatDateOnly,
   formatTimeOnly,
   convertDateOnlyToDate,
   convertTimeOnlyToDate,
+  transformDateFields,
 };
 

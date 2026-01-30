@@ -1,28 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const {Schedule} = require('../models/scheduleModel');
 const {parseScheduleCreate, parseScheduleUpdate, parseScheduleDefaultsCreate} = require('../validators/schedule.zod');
-const {formatDateOnly, formatTimeOnly, convertDateOnlyToDate, convertTimeOnlyToDate} = require('../utils/dateTimeUtils');
-
-/**
- * Transform validated data to convert date/time strings to Date objects
- */
-const transformScheduleData = (data) => {
-    const transformed = {
-        ...data
-    };
-
-    // Convert date-only string to Date object
-    if (transformed.date && typeof transformed.date === 'string') {
-        transformed.date = convertDateOnlyToDate(transformed.date);
-    }
-
-    // Convert time-only string to Date object
-    if (transformed.time && typeof transformed.time === 'string') {
-        transformed.time = convertTimeOnlyToDate(transformed.time);
-    }
-
-    return transformed;
-};
+const {formatDateOnly, formatTimeOnly, convertDateOnlyToDate, convertTimeOnlyToDate, transformDateFields} = require('../utils/dateTimeUtils');
 
 // get schedule by id
 const getScheduleById = asyncHandler(async (req, res) => {
@@ -55,7 +34,7 @@ const getAllSchedulesByUser = asyncHandler(async (req, res) => {
 // create schedule by user
 const createSchedule = asyncHandler(async (req, res) => {
     const validatedData = parseScheduleCreate(req.body);
-    const transformedData = transformScheduleData(validatedData);
+    const transformedData = transformDateFields(validatedData, { dateKeys: ['date'], timeKeys: ['time'] });
     const schedule = new Schedule(transformedData);
     const savedSchedule = await schedule.save();
     res.status(201).json({success: true, message: 'Schedule created successfully', schedule: savedSchedule});
@@ -121,13 +100,26 @@ const updateSchedule = asyncHandler(async (req, res) => {
     const {id} = req.params;
 
     const validatedData = parseScheduleUpdate(req.body);
-    const transformedData = transformScheduleData(validatedData);
+    const transformedData = transformDateFields(validatedData, { dateKeys: ['date'], timeKeys: ['time'] });
     const schedule = await Schedule.findByIdAndUpdate(id, transformedData, {new: true});
     if (! schedule) {
         res.status(404);
         throw new Error('Schedule not found');
     }
-    res.status(200).json({success: true, message: 'Schedule updated successfully', schedule: schedule});
+    const { userId, audioId, type, weekday, date, time, status, isDefault, isDeleted, ...rest } = schedule;
+    const scheduleResponse = {
+        ...rest,
+        user: userId,
+        audio: audioId,
+        type: type,
+        weekday: weekday,
+        date: formatDateOnly(date),
+        time: formatTimeOnly(time),
+        status: status,
+        isDefault: isDefault,
+        isDeleted: isDeleted,
+    };
+    res.status(200).json({success: true, message: 'Schedule updated successfully', schedule: scheduleResponse});
 });
 
 module.exports = {
