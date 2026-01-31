@@ -3,6 +3,7 @@ const express = require('express')
 const requireAdmin = require('../middleware/requireAdmin');
 const authLimiter = require('../middleware/rateLimitHandler');
 const validateToken = require('../middleware/validateTokenHandler');
+const requireOwnership = require('../middleware/requireOwnership');
 
 const { validateObjectId } = require('../middleware/validationObjectIdHandler');
 const { getAllSubscriptions, createSubscription, getSubscriptionByUserId, updateSubscription, cancelSubscription } = require('../controllers/subscriptionController');
@@ -16,7 +17,7 @@ router.get('/', authLimiter, validateToken, requireAdmin, getAllSubscriptions);
 router.post('/', validateToken, createSubscription);
 
 // Get subscription by user ID
-router.get('/:userId', validateToken, validateObjectId, getSubscriptionByUserId);
+router.get('/:userId', validateToken, validateObjectId, requireOwnership(), getSubscriptionByUserId);
 
 // Update subscription
 router.put('/:id', validateToken, validateObjectId, updateSubscription);

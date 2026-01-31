@@ -7,6 +7,7 @@ const {
     createDefaultSchedules
 } = require('../controllers/scheduleController');
 const validateToken = require('../middleware/validateTokenHandler');
+const requireOwnership = require('../middleware/requireOwnership');
 const authLimiter = require('../middleware/rateLimitHandler');
 const {validateObjectId} = require('../middleware/validationObjectIdHandler');
 
@@ -16,7 +17,7 @@ const router = express.Router();
 router.get('/:id', validateObjectId, validateToken, getScheduleById);
 
 // GET /api/v2/schedules/user/:userId
-router.get('/user/:userId', validateObjectId, validateToken, getAllSchedulesByUser);
+router.get('/user/:userId', validateObjectId, validateToken, requireOwnership(), getAllSchedulesByUser);
 
 // POST /api/v2/schedules/create
 router.post('/create', authLimiter, validateToken, createSchedule);

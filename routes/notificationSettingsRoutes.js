@@ -3,16 +3,17 @@ const { getNotificationByUserId, createNotification, updateNotification } = requ
 const validateToken = require('../middleware/validateTokenHandler');
 const authLimiter = require('../middleware/rateLimitHandler');
 const { validateObjectId } = require('../middleware/validationObjectIdHandler');
+const requireOwnership = require('../middleware/requireOwnership');
 
 const router = express.Router();
 
 // GET /api/v2/notification-settings/:userId
-router.get('/:userId', validateObjectId, validateToken, getNotificationByUserId);
+router.get('/:userId', validateObjectId, validateToken, requireOwnership(), getNotificationByUserId);
 
 // POST /api/v2/notification-settings
 router.post('/', authLimiter, validateToken, createNotification);
 
 // PUT /api/v2/notification-settings/:userId
-router.put('/:userId', validateObjectId, authLimiter, validateToken, updateNotification);
+router.put('/:userId', validateObjectId, authLimiter, validateToken, requireOwnership(), updateNotification);
 
 module.exports = router;
