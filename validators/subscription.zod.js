@@ -10,6 +10,8 @@ const subscriptionCreateSchema = z.object({
   total: z.number().optional(),
   couponId: objectId.optional(),
   subscriptionStatus: z.enum(["active", "expired", "cacelled"]).optional(),
+  paymentReference: z.string().optional(),
+  paymentDate: z.coerce.date().optional(),
   expirationDate: z.coerce.date().optional(),
   cancelDate: z.coerce.date().optional(),
 });
@@ -22,6 +24,8 @@ const subscriptionUpdateSchema = z.object({
   total: z.number().optional(),
   couponId: objectId.optional(),
   subscriptionStatus: z.enum(["active", "expired", "cacelled"]).optional(),
+  paymentReference: z.string().optional(),
+  paymentDate: z.coerce.date().optional(),
   expirationDate: z.coerce.date().optional(),
   cancelDate: z.coerce.date().optional(),
 });

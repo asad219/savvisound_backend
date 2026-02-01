@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const { Subscription } = require('../models/subscriptionModel');
 const { parseSubscriptionCreate, parseSubscriptionUpdate } = require('../validators/subscription.zod');
-const { convertDateOnlyToDate, formatDateOnly, transformDateFields } = require('../utils/dateTimeUtils');
+const {formatDateOnly, formatTimeOnly, convertDateOnlyToDate, convertTimeOnlyToDate, transformDateFields} = require('../utils/dateTimeUtils');
 
 //get all subscriptions by admin
 const getAllSubscriptions = asyncHandler(async (req, res) => {
@@ -20,7 +20,7 @@ const getAllSubscriptions = asyncHandler(async (req, res) => {
 //create subscription by user
 const createSubscription = asyncHandler(async (req, res) => {
     const validatedData = parseSubscriptionCreate(req.body);
-    const transformedData = transformDateFields(validatedData, { dateKeys: ['expirationDate'] });
+    const transformedData = transformDateFields(validatedData, { dateKeys: ['expirationDate', 'paymentDate'] });
     const subscription = new Subscription(transformedData);
     const savedSubscription = await subscription.save();
     res.status(201).json({
@@ -33,8 +33,10 @@ const createSubscription = asyncHandler(async (req, res) => {
 //get subscription by user id
 const getSubscriptionByUserId = asyncHandler(async (req, res) => {
     const { userId } = req.params;
+
     const doc = await Subscription.findOne({ userId: userId })
-        .select('_id userId packageId price discount total couponId subscriptionStatus expirationDate createdAt updatedAt')
+
+        .select('_id userId packageId price discount total couponId subscriptionStatus expirationDate paymentDate paymentReference')
         .populate('userId', 'name email firstName lastName')
         .populate('packageId', 'name price')
         .populate('couponId', 'name discount')
@@ -45,14 +47,19 @@ const getSubscriptionByUserId = asyncHandler(async (req, res) => {
             subscription: null,
         });
     }
-    const { userId: userIdRef, packageId, couponId, expirationDate, ...rest } = doc;
+    const { userId: userIdRef, packageId, couponId, expirationDate, paymentDate, paymentReference, ...rest } = doc;
     const dateStr = expirationDate != null ? formatDateOnly(expirationDate) : null;
+    const paymentDateStr = paymentDate != null ? formatDateOnly(paymentDate) : null;
+    const paymentTimeStr = paymentDate != null ? formatTimeOnly(paymentDate) : null;
     const subscription = {
         ...rest,
         user: userIdRef,
         package: packageId,
         coupon: couponId,
-        expirationDate: dateStr != null ? convertDateOnlyToDate(dateStr) : null,
+        expirationDate: dateStr,
+        paymentDate: paymentDateStr,
+        paymentTime: paymentTimeStr,
+        paymentReference: paymentReference,
     };
     res.status(200).json({
         success: true,

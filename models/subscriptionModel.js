@@ -14,6 +14,8 @@ const subscriptionSchema = new Schema(
     total: { type: Number, default: 0 },
     couponId: { type: Schema.Types.ObjectId, ref: "Coupon" },
     subscriptionStatus: { type: String, enum: ["active", "expired", "cancelled"] },
+    paymentReference: { type: String },
+    paymentDate: Date,
     expirationDate: Date,
     cancelDate: Date,
   },

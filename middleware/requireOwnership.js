@@ -1,8 +1,7 @@
 const requireOwnership = (paramName = 'userId') => {
   return (req, res, next) => {
     const resourceUserId = req.params[paramName];
-    console.log('Resource: ', req.params[paramName]);
-    console.log('Resource User ID:', resourceUserId);
+
     const authenticatedUserId = req.user.userId.toString();
 
     // Admin bypass

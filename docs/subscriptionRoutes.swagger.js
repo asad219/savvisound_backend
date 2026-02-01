@@ -39,6 +39,15 @@
  *           type: string
  *           enum: [active, expired, cacelled]
  *           description: Subscription status
+ *         paymentReference:
+ *           type: string
+ *           nullable: true
+ *           description: Payment reference string
+ *         paymentDate:
+ *           type: string
+ *           format: date-time
+ *           nullable: true
+ *           description: Payment date
  *         expirationDate:
  *           type: string
  *           format: date-time
@@ -87,6 +96,13 @@
  *           type: string
  *           enum: [active, expired, cacelled]
  *           description: Subscription status
+ *         paymentReference:
+ *           type: string
+ *           description: Payment reference string
+ *         paymentDate:
+ *           type: string
+ *           format: date-time
+ *           description: Payment date
  *         expirationDate:
  *           type: string
  *           format: date-time
@@ -120,6 +136,13 @@
  *           type: string
  *           enum: [active, expired, cacelled]
  *           description: Subscription status
+ *         paymentReference:
+ *           type: string
+ *           description: Payment reference string
+ *         paymentDate:
+ *           type: string
+ *           format: date-time
+ *           description: Payment date
  *         expirationDate:
  *           type: string
  *           format: date-time

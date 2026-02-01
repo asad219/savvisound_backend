@@ -9,8 +9,9 @@ const hydrationHistoryRoutes = require('./hydrationHistoryRoutes');
 const subscriptionRoutes = require('./subscriptionRoutes');
 const journeyRoutes = require('./journeyRoutes');
 const journeyOptionRoutes = require('./journeyOptionRoutes');
-
-
+const audioCompletionRoutes = require('./audioCompletionRoutes');
+const userJourneyRoutes = require('./userJourneyRoutes');
+const userJourneyResponseRoutes = require('./userJourneyResponseRoutes');
 
 const router = express.Router();
 
@@ -43,5 +44,14 @@ router.use('/journey', journeyRoutes);
 
 // Mount journey option routes
 router.use('/journey-option', journeyOptionRoutes);
+
+// Mount audio completion routes
+router.use('/audio-completions', audioCompletionRoutes);
+
+// Mount user journey routes
+router.use('/user-journey', userJourneyRoutes);
+
+// Mount user journey response routes
+router.use('/user-journey-response', userJourneyResponseRoutes);
 
 module.exports = router;
