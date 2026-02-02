@@ -8,7 +8,7 @@
   "prettier.useEditorConfig": false,
   "[javascript]": {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "mblode.pretty-formatter"
   },
   "[javascriptreact]": {
     "editor.formatOnSave": true,

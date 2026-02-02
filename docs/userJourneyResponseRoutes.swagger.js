@@ -158,10 +158,26 @@
  * /user-journey-response:
  *   get:
  *     summary: Get all user journey responses (admin only)
- *     description: Returns all user journey responses for all users. Sorted by journeyDate descending. journeyDate is formatted as YYYY-MM-DD. Requires admin role.
+ *     description: Returns paginated user journey responses for all users. Sorted by createdAt descending. journeyDate in each response is formatted as YYYY-MM-DD. Requires admin role.
  *     tags: [User Journey Response]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         description: Page number (starts from 1)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 100
+ *           default: 10
+ *         description: Number of items per page
  *     responses:
  *       200:
  *         description: User journey responses retrieved successfully
@@ -177,6 +193,21 @@
  *                   type: array
  *                   items:
  *                     $ref: '#/components/schemas/UserJourneyResponse'
+ *                 pagination:
+ *                   type: object
+ *                   properties:
+ *                     page:
+ *                       type: integer
+ *                       example: 1
+ *                     limit:
+ *                       type: integer
+ *                       example: 10
+ *                     total:
+ *                       type: integer
+ *                       example: 50
+ *                     pages:
+ *                       type: integer
+ *                       example: 5
  *       401:
  *         description: Unauthorized - Invalid or missing token
  *       403:
@@ -234,7 +265,7 @@
  * /user-journey-response/{userId}:
  *   get:
  *     summary: Get user journey responses by user ID
- *     description: Returns all user journey responses for the given user, sorted by journeyDate descending (most recent first). Each item includes the response object (journeyId, journeyOptionId, value).
+ *     description: Returns all user journey responses for the given user, sorted by createdAt descending. Can be filtered by year and/or month. Each response includes journeyDate (formatted as YYYY-MM-DD), journeyId, journeyOptionId, and value.
  *     tags: [User Journey Response]
  *     security:
  *       - bearerAuth: []
@@ -246,6 +277,22 @@
  *           type: string
  *           pattern: '^[0-9a-fA-F]{24}$'
  *         description: User ID (24-char hex ObjectId)
+ *       - in: query
+ *         name: year
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           example: 2026
+ *         description: Filter by year (e.g. 2026)
+ *       - in: query
+ *         name: month
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           maximum: 12
+ *           example: 4
+ *         description: Filter by month (1–12, where 1 = January)
  *     responses:
  *       200:
  *         description: User journey responses retrieved successfully
