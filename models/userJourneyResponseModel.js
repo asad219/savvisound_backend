@@ -1,14 +1,23 @@
 const mongoose = require('mongoose');
-// Ensure UserJourney and JourneyOption models are registered for populate
-require('./userJourneyModel');
+require('./userModel');
+require('./journeyModel');
 require('./journeyOptionModel');
 const { Schema, model } = mongoose;
 
-const userJourneyResponseSchema = new Schema(
+const userJourneyResponseSubSchema = new Schema(
   {
-    journeyId: { type: Schema.Types.ObjectId, ref: 'UserJourney', required: true },
+    journeyId: { type: Schema.Types.ObjectId, ref: 'Journey', required: true },
     journeyOptionId: { type: Schema.Types.ObjectId, ref: 'JourneyOption', required: true },
     value: { type: Number, required: true },
+  },
+  { _id: false }
+);
+
+const userJourneyResponseSchema = new Schema(
+  {
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    journeyDate: { type: Date, required: true },
+    response: { type: [userJourneyResponseSubSchema], required: true },
   },
   { timestamps: true }
 );

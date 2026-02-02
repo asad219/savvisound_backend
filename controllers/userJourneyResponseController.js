@@ -1,132 +1,97 @@
 const { UserJourneyResponse } = require('../models/userJourneyResponseModel');
-const { UserJourney } = require('../models/userJourneyModel');
 const { parseUserJourneyResponseCreate } = require('../validators/userJourneyResponse.zod');
+const { formatDateOnly } = require('../utils/dateTimeUtils');
 const asyncHandler = require('express-async-handler');
 
-// Get all user journey responses (admin only)
+//create user journey response
+const createUserJourneyResponse = asyncHandler(async (req, res) => {
+  const body = req.body;
+
+  const validatedData = parseUserJourneyResponseCreate(body);
+
+  try {
+    const doc = new UserJourneyResponse({
+      userId: validatedData.userId,
+      journeyDate: validatedData.journeyDate,
+      response: validatedData.response,
+    });
+    const saved = await doc.save();
+    res.status(201).json({
+      success: true,
+      message: `Successfully saved ${validatedData.response.length} responses`,
+      userJourneyResponse: saved,
+    });
+  } catch (error) {
+    res.status(400);
+    throw new Error(`Validation failed: ${error.message}`);
+  }
+});
+
+// get all user journey responses (admin only)
 const getAllUserJourneyResponses = asyncHandler(async (req, res) => {
   const responses = await UserJourneyResponse.find()
-    .select('_id journeyId journeyOptionId value createdAt updatedAt')
-    .populate({
-      path: 'journeyId',
-      model: UserJourney,
-      select: '_id journeyDate',
-    })
-    .populate('journeyOptionId', '_id option')
+    .select('_id userId journeyDate response')
+    .populate('userId', '_id firstName lastName email')
+    .populate('response.journeyId', '_id title')
+    .populate('response.journeyOptionId', '_id option')
+    .sort({ journeyDate: -1 })
     .lean();
 
-  // Sort by journeyDate descending after population
-  const sortedResponses = responses.sort((a, b) => {
-    const dateA = a.journeyId?.journeyDate || new Date(0);
-    const dateB = b.journeyId?.journeyDate || new Date(0);
-    return new Date(dateB) - new Date(dateA);
-  });
+  const userJourneyResponses = responses.map((item) => ({
+    ...item,
+    journeyDate: formatDateOnly(item.journeyDate ? new Date(item.journeyDate) : null),
+  }));
 
-  res.status(200).json({
-    success: true,
-    userJourneyResponses: sortedResponses,
-  });
+  res.status(200).json({ success: true, userJourneyResponses });
 });
 
-// Create user journey responses by user (bulk insert)
-const createUserJourneyResponse = asyncHandler(async (req, res) => {
-  const dataArray = req.body;
-
-  // Check if data is an array
-  if (!Array.isArray(dataArray)) {
-    res.status(400);
-    throw new Error('Request body must be an array of objects');
-  }
-
-  // Check if array is empty
-  if (dataArray.length === 0) {
-    res.status(400);
-    throw new Error('Request body cannot be an empty array');
-  }
-
-  // Validate and save each item
-  const savedResponses = [];
-  const errors = [];
-
-  for (let i = 0; i < dataArray.length; i++) {
-    try {
-      const validatedData = parseUserJourneyResponseCreate(dataArray[i]);
-      const userJourneyResponse = new UserJourneyResponse(validatedData);
-      const savedResponse = await userJourneyResponse.save();
-      savedResponses.push(savedResponse);
-    } catch (error) {
-      errors.push({
-        index: i,
-        data: dataArray[i],
-        error: error.message,
-      });
-    }
-  }
-
-  // If all validations failed, return error
-  if (savedResponses.length === 0 && errors.length > 0) {
-    res.status(400);
-    throw new Error(`All validations failed: ${JSON.stringify(errors)}`);
-  }
-
-  // Return response with saved data and any errors
-  res.status(201).json({
-    success: true,
-    message: `Successfully saved ${savedResponses.length} out of ${dataArray.length} responses`,
-    userJourneyResponses: savedResponses,
-    ...(errors.length > 0 && { validationErrors: errors }),
-  });
-});
-
-// Get all user journey responses by user ID
+// get user journey responses by user
 const getUserJourneyResponsesByUser = asyncHandler(async (req, res) => {
   const { userId } = req.params;
-  console.log('Fetching responses for userId:', userId);
 
-  // First get all user journeys for this user
-  const userJourneys = await UserJourney.find({ userId: userId }).select('_id').lean();
-  console.log('Found user journeys:', userJourneys.length);
-  const journeyIds = userJourneys.map((j) => j._id);
-
-  console.log('Journey IDs:', journeyIds);
-
-  const ress = await UserJourneyResponse.find({ journeyId: { $in: journeyIds } });
-  console.log('Found response', ress);
-
-  const responses = await UserJourneyResponse.find({
-    journeyId: { $in: '697d1a77d17f35d4c6f2345c' },
-  })
-    .select('_id journeyId journeyOptionId option value createdAt updatedAt')
-    .populate({
-      path: 'journeyId',
-      model: UserJourney,
-      select: '_id journeyDate',
-    })
-    .populate('journeyOptionId', '_id option')
+  const responses = await UserJourneyResponse.find({ userId })
+    .select('_id userId journeyDate response')
+    .populate('userId', '_id firstName lastName email')
+    .populate('response.journeyId', '_id title')
+    .populate('response.journeyOptionId', '_id option')
+    .sort({ journeyDate: -1 })
     .lean();
 
-  if (!responses || responses.length === 0) {
-    return res.status(200).json({
-      success: true,
-      userJourneyResponses: [],
-    });
+  const userJourneyResponses = responses.map((item) => ({
+    ...item,
+    journeyDate: formatDateOnly(item.journeyDate ? new Date(item.journeyDate) : null),
+  }));
+
+  res.status(200).json({ success: true, userJourneyResponses });
+});
+
+// get user journey response by ID (admin only)
+const getUserJourneyResponseById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const response = await UserJourneyResponse.findById(id)
+    .select('_id userId journeyDate response')
+    .populate('userId', '_id firstName lastName email')
+    .populate('response.journeyId', '_id title')
+    .populate('response.journeyOptionId', '_id option')
+    .lean();
+
+  if (!response) {
+    res.status(404);
+    throw new Error('User journey response not found');
   }
 
-  // Sort by journeyDate descending after population
-  const sortedResponses = responses.sort((a, b) => {
-    const dateA = a.journeyId?.journeyDate || new Date(0);
-    const dateB = b.journeyId?.journeyDate || new Date(0);
-    return new Date(dateB) - new Date(dateA);
-  });
+  const userJourneyResponse = {
+    ...response,
+    journeyDate: formatDateOnly(response.journeyDate ? new Date(response.journeyDate) : null),
+  };
 
-  res.status(200).json({
-    success: true,
-    userJourneyResponses: sortedResponses,
-  });
+  res.status(200).json({ success: true, userJourneyResponse });
 });
 
 module.exports = {
-  getAllUserJourneyResponses,
   createUserJourneyResponse,
+  getAllUserJourneyResponses,
   getUserJourneyResponsesByUser,
+  getUserJourneyResponseById,
 };
