@@ -185,7 +185,7 @@
  *
  * /quizResponse/user/{userId}:
  *   get:
- *     summary: Get quiz response by user ID
+ *     summary: Get quiz responses by user ID
  *     tags: [Quiz Response]
  *     security:
  *       - bearerAuth: []
@@ -198,7 +198,7 @@
  *         description: User ID (24-char hex ObjectId)
  *     responses:
  *       200:
- *         description: Quiz response retrieved successfully
+ *         description: Quiz responses retrieved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -206,16 +206,16 @@
  *               properties:
  *                 success:
  *                   type: boolean
- *                 quizResponse:
- *                   $ref: '#/components/schemas/QuizResponse'
+ *                 quizResponses:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/QuizResponse'
  *       400:
  *         description: Invalid user ID format
  *       401:
  *         description: Unauthorized - Invalid or missing token
  *       403:
  *         description: Forbidden - You can only view your own quiz responses
- *       404:
- *         description: Quiz response not found
  *       429:
  *         description: Too many requests - Rate limit exceeded
  *       500:
