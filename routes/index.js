@@ -11,6 +11,7 @@ const journeyRoutes = require('./journeyRoutes');
 const journeyOptionRoutes = require('./journeyOptionRoutes');
 const audioCompletionRoutes = require('./audioCompletionRoutes');
 const userJourneyResponseRoutes = require('./userJourneyResponseRoutes');
+const quizResponseRoutes = require('./quizResponseRoutes');
 
 const router = express.Router();
 
@@ -49,5 +50,8 @@ router.use('/audio-completions', audioCompletionRoutes);
 
 // Mount user journey response routes
 router.use('/user-journey-response', userJourneyResponseRoutes);
+
+// Mount quiz response routes
+router.use('/quizresponse', quizResponseRoutes);
 
 module.exports = router;

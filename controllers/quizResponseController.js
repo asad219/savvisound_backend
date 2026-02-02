@@ -15,25 +15,30 @@ const createQuizResponse = asyncHandler(async (req, res) => {
 const getQuizResponseByUserId = asyncHandler(async (req, res) => {
     const {userId} = req.params;
 
-    const quizResponse = await QuizResponse.findOne({userId}).select('_id userId quizDate response createdAt updatedAt').populate('userId', '_id firstName lastName email').populate('response.quizId', '_id title').populate('response.quizOptionId', '_id title').sort({createdAt: -1}).lean();
+    const quizResponses = await QuizResponse.find({userId}).select('_id userId quizDate response createdAt updatedAt').populate('userId', '_id firstName lastName email').populate('response.quizId', '_id title order').populate('response.quizOptionId', '_id title').sort({createdAt: 1}).lean();
 
-    if (! quizResponse) {
-        return res.status(200).json({success: true, quizResponse: null});
+    if (!quizResponses || quizResponses.length === 0) {
+        return res.status(200).json({success: true, quizResponses: []});
     }
 
-    const formattedResponse = {
-        ... quizResponse,
+    const formattedResponses = quizResponses.map((quizResponse) => ({
+        ...quizResponse,
         id: quizResponse._id,
         quizDate: formatDateOnly(quizResponse.quizDate ? new Date(quizResponse.quizDate) : null),
-        response: quizResponse.response.map((resp) => ({
-            quizId: resp.quizId,
-            quizOptionId: resp.quizOptionId.map((opt) => ({
-                _id: opt._id, option: opt.title, // Map title to option
+        response: quizResponse.response
+            .map((resp) => ({
+                quizId: resp.quizId,
+                quizOptionId: resp.quizOptionId.map((opt) => ({
+                    _id: opt._id,
+                    option: opt.title, // Map title to option
+                })),
+                order: resp.quizId?.order || 0 // Include order for sorting
             }))
-        }))
-    };
+            .sort((a, b) => (a.order || 0) - (b.order || 0)) // Sort by quiz order
+            .map(({ order, ...rest }) => rest) // Remove order field from final output
+    }));
 
-    res.status(200).json({success: true, quizResponse: formattedResponse});
+    res.status(200).json({success: true, quizResponses: formattedResponses});
 });
 
 // get all quiz responses (admin only)

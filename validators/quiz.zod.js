@@ -2,14 +2,12 @@ const { z } = require('zod');
 
 const quizCreateSchema = z.object({
   title: z.string().min(1).optional(),
-  slug: z.string().min(1, { message: 'Slug is required' }),
   order: z.number().int().optional(),
   maxOptions: z.number().int({ message: 'maxOptions must be an integer' }).min(1, { message: 'maxOptions must be at least 1' }),
 });
 
 const quizUpdateSchema = z.object({
   title: z.string().min(1).optional(),
-  slug: z.string().min(1).optional(),
   order: z.number().int().optional(),
   maxOptions: z.number().int({ message: 'maxOptions must be an integer' }).min(1, { message: 'maxOptions must be at least 1' }).optional(),
 });

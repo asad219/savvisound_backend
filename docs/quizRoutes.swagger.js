@@ -11,9 +11,6 @@
  *         title:
  *           type: string
  *           description: Quiz title
- *         slug:
- *           type: string
- *           description: Unique quiz slug
  *         order:
  *           type: integer
  *           description: Display order
@@ -62,9 +59,6 @@
  *         title:
  *           type: string
  *           description: Quiz title
- *         slug:
- *           type: string
- *           description: Unique quiz slug
  *         order:
  *           type: integer
  *           description: Display order
@@ -84,12 +78,9 @@
  *     QuizCreate:
  *       type: object
  *       required:
- *         - slug
  *         - maxOptions
  *       properties:
  *         title:
- *           type: string
- *         slug:
  *           type: string
  *         order:
  *           type: integer
