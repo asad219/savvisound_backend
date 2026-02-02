@@ -93,9 +93,10 @@
  *         customerId:
  *           type: string
  *           description: Customer ID (24-char hex ObjectId)
- *         quizId:
+ *         quizResponseId:
  *           type: string
- *           description: Quiz ID (24-char hex ObjectId)
+ *           pattern: '^[0-9a-fA-F]{24}$'
+ *           description: Quiz Response ID (24-char hex ObjectId)
  *         role:
  *           type: string
  *           enum: [admin, user]
