@@ -1,0 +1,33 @@
+# Staging override - Uses Let's Encrypt staging server to avoid rate limits during testing
+# Usage: docker compose -f docker-compose.yml -f docker-compose.staging.yml up -d
+
+services:
+  traefik:
+    command:
+      # API and Dashboard
+      - '--api.dashboard=true'
+      - '--api.insecure=true'
+      # Providers
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--providers.docker.network=traefik-public'
+      # Entrypoints
+      - '--entrypoints.web.address=:80'
+      - '--entrypoints.websecure.address=:443'
+      # HTTP to HTTPS redirect
+      - '--entrypoints.web.http.redirections.entrypoint.to=websecure'
+      - '--entrypoints.web.http.redirections.entrypoint.scheme=https'
+      - '--entrypoints.web.http.redirections.entrypoint.permanent=true'
+      # Let's Encrypt STAGING server (avoids rate limits during testing)
+      - '--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory'
+      - '--certificatesresolvers.letsencrypt.acme.httpchallenge=true'
+      - '--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web'
+      - '--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}'
+      - '--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json'
+      # Debug logging for staging
+      - '--log.level=DEBUG'
+      - '--accesslog=true'
+    ports:
+      - '80:80'
+      - '443:443'
+      - '8080:8080' # Traefik dashboard on insecure port for testing

@@ -211,3 +211,184 @@ docker run -d -p 5005:5005 --env-file .env --name savvisound-backend your-userna
 - Use strong `JWT_SECRET` in production
 - Ensure MongoDB is not exposed publicly (use private network or VPN)
 - Consider using Docker secrets for sensitive data in production
+
+---
+
+## Production Deployment with Traefik & Let's Encrypt SSL
+
+For production, use Docker Compose with Traefik reverse proxy for automatic HTTPS.
+
+### Architecture
+
+```
+Internet → Traefik (80/443) → savvisound-backend (5005)
+                ↓
+         Let's Encrypt SSL
+```
+
+**Features:**
+- Automatic SSL certificates from Let's Encrypt
+- HTTP to HTTPS redirect
+- Security headers (HSTS, XSS protection, etc.)
+- Rate limiting (100 req/s)
+- Traefik dashboard at `traefik.savvisound.com`
+
+---
+
+### Pre-Deployment Setup
+
+#### 1. Create Certificate Storage
+
+```bash
+# Create the acme.json file for Let's Encrypt certificates
+touch traefik/acme.json
+chmod 600 traefik/acme.json
+```
+
+> **Important:** The `600` permissions are required by Traefik for security.
+
+#### 2. Configure DNS Records
+
+Create A records pointing to your server IP:
+- `api.savvisound.com` → `<server-ip>`
+- `traefik.savvisound.com` → `<server-ip>` (optional, for dashboard)
+
+#### 3. Generate Dashboard Password
+
+```bash
+# Generate htpasswd hash
+docker run --rm httpd:2.4-alpine htpasswd -nbB admin 'your-secure-password'
+```
+
+Output example:
+```
+admin:$2y$05$abc123...
+```
+
+#### 4. Configure Environment Variables
+
+Add to your `.env` file (double the `$` signs in the hash):
+
+```bash
+# Traefik/Docker Configuration
+DOMAIN=savvisound.com
+ACME_EMAIL=admin@savvisound.com
+TRAEFIK_DASHBOARD_AUTH=admin:$$2y$$05$$abc123...
+```
+
+#### 5. Open Firewall Ports
+
+```bash
+# Ubuntu/Debian with UFW
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+
+# CentOS/RHEL with firewalld
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --reload
+```
+
+---
+
+### Deployment Commands
+
+#### Testing with Staging Certificates
+
+Use Let's Encrypt staging server first to avoid rate limits:
+
+```bash
+# Start with staging certificates (not trusted by browsers, but good for testing)
+docker compose -f docker-compose.yml -f docker-compose.staging.yml up -d
+
+# View logs
+docker compose logs -f
+
+# If everything works, tear down
+docker compose down
+```
+
+#### Production Deployment
+
+```bash
+# Clear staging certificates first
+rm traefik/acme.json
+touch traefik/acme.json
+chmod 600 traefik/acme.json
+
+# Deploy with production certificates
+docker compose up -d
+
+# View logs
+docker compose logs -f
+```
+
+---
+
+### Verification Steps
+
+```bash
+# 1. Check HTTP redirect (should return 301/308 to HTTPS)
+curl -I http://api.savvisound.com
+
+# 2. Check HTTPS endpoint
+curl https://api.savvisound.com/health
+
+# 3. Verify SSL certificate
+openssl s_client -connect api.savvisound.com:443 -servername api.savvisound.com
+
+# 4. Check security headers
+curl -I https://api.savvisound.com/health | grep -E "(Strict-Transport|X-Content-Type|X-Frame)"
+```
+
+---
+
+### Traefik Management Commands
+
+```bash
+# View Traefik logs
+docker compose logs -f traefik
+
+# View backend logs
+docker compose logs -f savvisound-backend
+
+# Restart services
+docker compose restart
+
+# Stop all services
+docker compose down
+
+# Rebuild and restart backend (after code changes)
+docker compose up -d --build savvisound-backend
+
+# Check container status
+docker compose ps
+```
+
+---
+
+### Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Certificate not issued | Check DNS propagation, ensure ports 80/443 are open |
+| 502 Bad Gateway | Backend not healthy, check `docker compose logs savvisound-backend` |
+| Dashboard not accessible | Verify `TRAEFIK_DASHBOARD_AUTH` is set correctly (double `$$`) |
+| Rate limited by Let's Encrypt | Use staging server, wait 1 hour, then retry |
+
+#### Check Certificate Status
+
+```bash
+# View acme.json (contains certificate data)
+cat traefik/acme.json | jq '.letsencrypt.Certificates'
+```
+
+#### Force Certificate Renewal
+
+```bash
+# Remove old certificates and restart
+rm traefik/acme.json
+touch traefik/acme.json
+chmod 600 traefik/acme.json
+docker compose restart traefik
+```
