@@ -1,0 +1,54 @@
+[{
+  "_id": {
+    "$oid": "696f7b411b26d4c7e798d7d5"
+  },
+  "audioUrl": "https://github.com/rafaelreis-hotmart/Audio-Sample-files/raw/master/sample.mp3",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81520"
+  },
+  "isActive": true,
+  "name": "purple",
+  "createdAt": {
+    "$date": "2026-01-20T12:55:29.950Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-20T12:55:29.950Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "696f7d9715d07ac7f315b9a2"
+  },
+  "audioUrl": "https://github.com/rafaelreis-hotmart/Audio-Sample-files/raw/master/sample.mp3",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81520"
+  },
+  "isActive": true,
+  "name": "purple",
+  "createdAt": {
+    "$date": "2026-01-20T13:05:27.183Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-20T13:05:27.183Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "696f7dd315d07ac7f315b9a4"
+  },
+  "audioUrl": "https://github.com/rafaelreis-hotmart/Audio-Sample-files/raw/master/sample.mp4",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81521"
+  },
+  "isActive": true,
+  "name": "red",
+  "createdAt": {
+    "$date": "2026-01-20T13:06:27.875Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-20T13:06:27.875Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "697d1ad3d17f35d4c6f2345e"
+  },
+  "journeyId": {
+    "$oid": "697d1a77d17f35d4c6f2345c"
+  },
+  "option": "Physical Health",
+  "createdAt": {
+    "$date": "2026-01-30T20:55:47.554Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-30T20:55:47.554Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "697d1ae1d17f35d4c6f23460"
+  },
+  "journeyId": {
+    "$oid": "697d1a77d17f35d4c6f2345c"
+  },
+  "option": "Mental Health",
+  "createdAt": {
+    "$date": "2026-01-30T20:56:01.693Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-30T20:56:01.693Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "697d1aefd17f35d4c6f23462"
+  },
+  "journeyId": {
+    "$oid": "697d1a77d17f35d4c6f2345c"
+  },
+  "option": "Quality of Life",
+  "createdAt": {
+    "$date": "2026-01-30T20:56:15.747Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-30T20:56:15.747Z"
+  },
+  "__v": 0
+}]

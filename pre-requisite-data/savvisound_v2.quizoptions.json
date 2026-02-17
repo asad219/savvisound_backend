@@ -1,0 +1,500 @@
+[{
+  "_id": {
+    "$oid": "6980d448ff5b70a0303e7480"
+  },
+  "quizId": {
+    "$oid": "6980d293ff5b70a0303e7476"
+  },
+  "title": "I prefer exercise without sweating or getting dirty.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81520"
+  },
+  "order": 1,
+  "createdAt": {
+    "$date": "2026-02-02T16:43:52.619Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T16:43:52.619Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980d46bff5b70a0303e7482"
+  },
+  "quizId": {
+    "$oid": "6980d293ff5b70a0303e7476"
+  },
+  "title": "Exercise energizes me, especially running, so I exercise often. Outside in nature is best.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81522"
+  },
+  "order": 2,
+  "createdAt": {
+    "$date": "2026-02-02T16:44:27.486Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T16:44:27.486Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980d487ff5b70a0303e7484"
+  },
+  "quizId": {
+    "$oid": "6980d293ff5b70a0303e7476"
+  },
+  "title": "I love fun high-energy competitive sports, more than just running.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81521"
+  },
+  "order": 3,
+  "createdAt": {
+    "$date": "2026-02-02T16:44:55.982Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T16:44:55.982Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980d4d8ff5b70a0303e7486"
+  },
+  "quizId": {
+    "$oid": "6980d293ff5b70a0303e7476"
+  },
+  "title": "If I exercise at all, slow flowing exercise is best.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c8151f"
+  },
+  "order": 4,
+  "createdAt": {
+    "$date": "2026-02-02T16:46:16.822Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T16:46:16.822Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980d50bff5b70a0303e7488"
+  },
+  "quizId": {
+    "$oid": "6980d293ff5b70a0303e7476"
+  },
+  "title": "I prefer exercising with friends. Otherwise, I skip it.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81523"
+  },
+  "order": 5,
+  "createdAt": {
+    "$date": "2026-02-02T16:47:07.912Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T16:47:07.912Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e705ff5b70a0303e7491"
+  },
+  "quizId": {
+    "$oid": "6980d29eff5b70a0303e7478"
+  },
+  "title": "I enjoy telling friends how much they will love spectacular amazing food.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81521"
+  },
+  "order": 1,
+  "createdAt": {
+    "$date": "2026-02-02T18:03:49.291Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:03:49.291Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e726ff5b70a0303e7493"
+  },
+  "quizId": {
+    "$oid": "6980d29eff5b70a0303e7478"
+  },
+  "title": "Sweet foods and drinks support me.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81523"
+  },
+  "order": 2,
+  "createdAt": {
+    "$date": "2026-02-02T18:04:22.329Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:04:22.329Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e747ff5b70a0303e7495"
+  },
+  "quizId": {
+    "$oid": "6980d29eff5b70a0303e7478"
+  },
+  "title": "I enjoy food best when it is elegant, well-presented, and flavourful.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81520"
+  },
+  "order": 3,
+  "createdAt": {
+    "$date": "2026-02-02T18:04:55.069Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:04:55.069Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e766ff5b70a0303e7497"
+  },
+  "quizId": {
+    "$oid": "6980d29eff5b70a0303e7478"
+  },
+  "title": "I prefer foods I can chew or crunch best.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81522"
+  },
+  "order": 4,
+  "createdAt": {
+    "$date": "2026-02-02T18:05:26.875Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:05:26.875Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e77dff5b70a0303e7499"
+  },
+  "quizId": {
+    "$oid": "6980d29eff5b70a0303e7478"
+  },
+  "title": "Salty foods support me, especially when I'm stressed.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c8151f"
+  },
+  "order": 5,
+  "createdAt": {
+    "$date": "2026-02-02T18:05:49.870Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:05:49.870Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e7afff5b70a0303e749b"
+  },
+  "quizId": {
+    "$oid": "6980d2c1ff5b70a0303e747a"
+  },
+  "title": "I focus time to accomplish my goals, and exercise to rejuvenate.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81522"
+  },
+  "order": 1,
+  "createdAt": {
+    "$date": "2026-02-02T18:06:39.068Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:06:39.068Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e7caff5b70a0303e749d"
+  },
+  "quizId": {
+    "$oid": "6980d2c1ff5b70a0303e747a"
+  },
+  "title": "Being at home with family, or cooking rejuvenates me best.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81523"
+  },
+  "order": 2,
+  "createdAt": {
+    "$date": "2026-02-02T18:07:06.516Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:07:06.516Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e7dfff5b70a0303e749f"
+  },
+  "quizId": {
+    "$oid": "6980d2c1ff5b70a0303e747a"
+  },
+  "title": "I wear stylish clothes, shoes, and meet up with friends to recharge.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81521"
+  },
+  "order": 3,
+  "createdAt": {
+    "$date": "2026-02-02T18:07:27.488Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:07:27.488Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e7f9ff5b70a0303e74a1"
+  },
+  "quizId": {
+    "$oid": "6980d2c1ff5b70a0303e747a"
+  },
+  "title": "Organizing what I see helps me structure my time around what is important.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81520"
+  },
+  "order": 4,
+  "createdAt": {
+    "$date": "2026-02-02T18:07:53.418Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:07:53.418Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e80cff5b70a0303e74a3"
+  },
+  "quizId": {
+    "$oid": "6980d2c1ff5b70a0303e747a"
+  },
+  "title": "Alone time in silence restores and recharges me.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c8151f"
+  },
+  "order": 5,
+  "createdAt": {
+    "$date": "2026-02-02T18:08:12.274Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:08:12.274Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e8aeff5b70a0303e74a5"
+  },
+  "quizId": {
+    "$oid": "6980d2caff5b70a0303e747c"
+  },
+  "title": "What I am thinking about is important.  My hair, and what I wear is not important.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c8151f"
+  },
+  "order": 1,
+  "createdAt": {
+    "$date": "2026-02-02T18:10:54.054Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:10:54.054Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e8cbff5b70a0303e74a7"
+  },
+  "quizId": {
+    "$oid": "6980d2caff5b70a0303e747c"
+  },
+  "title": "Discussing stylish shoes and clothing makes me happy, even joyful.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81521"
+  },
+  "order": 2,
+  "createdAt": {
+    "$date": "2026-02-02T18:11:23.385Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:11:23.385Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e8e5ff5b70a0303e74a9"
+  },
+  "quizId": {
+    "$oid": "6980d2caff5b70a0303e747c"
+  },
+  "title": "I prefer classic clothing that feels good on my skin.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81520"
+  },
+  "order": 3,
+  "createdAt": {
+    "$date": "2026-02-02T18:11:49.169Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:11:49.169Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e8fdff5b70a0303e74ab"
+  },
+  "quizId": {
+    "$oid": "6980d2caff5b70a0303e747c"
+  },
+  "title": "Wearing loose, comfortable clothes like pyjamas or sweats all day makes me happy.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81523"
+  },
+  "order": 4,
+  "createdAt": {
+    "$date": "2026-02-02T18:12:13.108Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:12:13.108Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e915ff5b70a0303e74ad"
+  },
+  "quizId": {
+    "$oid": "6980d2caff5b70a0303e747c"
+  },
+  "title": "I wear clean, practical clothing that lets me be active.  Fashion is distracting.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81522"
+  },
+  "order": 5,
+  "createdAt": {
+    "$date": "2026-02-02T18:12:37.270Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:12:37.270Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e9c4ff5b70a0303e74af"
+  },
+  "quizId": {
+    "$oid": "6980d2d7ff5b70a0303e747e"
+  },
+  "title": "Seeing nostalgic collectibles around me brings me contentment and inspiration.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81523"
+  },
+  "order": 1,
+  "createdAt": {
+    "$date": "2026-02-02T18:15:32.737Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:15:32.737Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980e9dbff5b70a0303e74b1"
+  },
+  "quizId": {
+    "$oid": "6980d2d7ff5b70a0303e747e"
+  },
+  "title": "My home is completely organized, so it easy to find items in drawers and cabinets.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81522"
+  },
+  "order": 2,
+  "createdAt": {
+    "$date": "2026-02-02T18:15:55.891Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:15:55.891Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980ea58ff5b70a0303e74b3"
+  },
+  "quizId": {
+    "$oid": "6980d2d7ff5b70a0303e747e"
+  },
+  "title": "Clean, beautiful surfaces in large rooms help me focus on what is important.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81520"
+  },
+  "order": 3,
+  "createdAt": {
+    "$date": "2026-02-02T18:18:00.425Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:18:00.425Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980ea7fff5b70a0303e74b5"
+  },
+  "quizId": {
+    "$oid": "6980d2d7ff5b70a0303e747e"
+  },
+  "title": "My home art, style and colours bring me joy!",
+  "colorId": {
+    "$oid": "696e7247b04da68050c81521"
+  },
+  "order": 4,
+  "createdAt": {
+    "$date": "2026-02-02T18:18:39.765Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:18:39.765Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6980ea97ff5b70a0303e74b7"
+  },
+  "quizId": {
+    "$oid": "6980d2d7ff5b70a0303e747e"
+  },
+  "title": "In my favorite spaces I can lounge and dim the lights.",
+  "colorId": {
+    "$oid": "696e7247b04da68050c8151f"
+  },
+  "order": 5,
+  "createdAt": {
+    "$date": "2026-02-02T18:19:03.312Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-02T18:19:03.312Z"
+  },
+  "__v": 0
+}]

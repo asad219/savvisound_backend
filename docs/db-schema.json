@@ -1,0 +1,844 @@
+{
+  "generatedAt": "2026-02-17T16:55:05.319Z",
+  "models": {
+    "Quiz": {
+      "collection": "quizzes",
+      "timestamps": true,
+      "fields": {
+        "title": {
+          "type": "String",
+          "required": false
+        },
+        "order": {
+          "type": "Number",
+          "required": false
+        },
+        "maxOptions": {
+          "type": "Number",
+          "required": true
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "Color": {
+      "collection": "colors",
+      "timestamps": true,
+      "fields": {
+        "color": {
+          "type": "String",
+          "required": false
+        },
+        "color_code": {
+          "type": "String",
+          "required": false
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "QuizOption": {
+      "collection": "quizoptions",
+      "timestamps": true,
+      "fields": {
+        "quizId": {
+          "type": "ObjectId",
+          "required": false,
+          "ref": "Quiz"
+        },
+        "title": {
+          "type": "String",
+          "required": false
+        },
+        "colorId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "Color"
+        },
+        "order": {
+          "type": "Number",
+          "required": false
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "QuizResponse": {
+      "collection": "quizresponses",
+      "timestamps": true,
+      "fields": {
+        "userId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "User"
+        },
+        "quizDate": {
+          "type": "Date",
+          "required": true
+        },
+        "response": {
+          "type": "Array",
+          "required": true
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "User": {
+      "collection": "users",
+      "timestamps": true,
+      "fields": {
+        "email": {
+          "type": "String",
+          "required": true,
+          "unique": true
+        },
+        "passwordHash": {
+          "type": "String",
+          "required": false
+        },
+        "name": {
+          "type": "String",
+          "required": false
+        },
+        "firstName": {
+          "type": "String",
+          "required": false
+        },
+        "lastName": {
+          "type": "String",
+          "required": false
+        },
+        "phone": {
+          "type": "String",
+          "required": false
+        },
+        "profilePicUrl": {
+          "type": "String",
+          "required": false
+        },
+        "weight": {
+          "type": "Number",
+          "required": false
+        },
+        "weightSymbol": {
+          "type": "String",
+          "required": false
+        },
+        "customerId": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "quizResponseId": {
+          "type": "ObjectId",
+          "required": false,
+          "ref": "QuizResponse"
+        },
+        "role": {
+          "type": "String",
+          "required": false,
+          "enum": [
+            "admin",
+            "user"
+          ],
+          "default": "user"
+        },
+        "colorId": {
+          "type": "ObjectId",
+          "required": false,
+          "ref": "Color"
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "AudioFile": {
+      "collection": "audiofiles",
+      "timestamps": true,
+      "fields": {
+        "audioUrl": {
+          "type": "String",
+          "required": true
+        },
+        "colorId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "Color"
+        },
+        "isActive": {
+          "type": "Boolean",
+          "required": false,
+          "default": true
+        },
+        "name": {
+          "type": "String",
+          "required": true
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "Schedule": {
+      "collection": "schedules",
+      "timestamps": true,
+      "fields": {
+        "userId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "User"
+        },
+        "audioId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "AudioFile"
+        },
+        "type": {
+          "type": "String",
+          "required": false,
+          "enum": [
+            "recurring",
+            "once"
+          ]
+        },
+        "weekday": {
+          "type": "String",
+          "required": false,
+          "enum": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday"
+          ]
+        },
+        "date": {
+          "type": "Date",
+          "required": false
+        },
+        "time": {
+          "type": "Date",
+          "required": false
+        },
+        "hours": {
+          "type": "Number",
+          "required": false
+        },
+        "minutes": {
+          "type": "Number",
+          "required": false
+        },
+        "seconds": {
+          "type": "Number",
+          "required": false
+        },
+        "repeat": {
+          "type": "Number",
+          "required": false
+        },
+        "status": {
+          "type": "Boolean",
+          "required": false,
+          "default": true
+        },
+        "isDefault": {
+          "type": "Boolean",
+          "required": false,
+          "default": false
+        },
+        "isDeleted": {
+          "type": "Boolean",
+          "required": false,
+          "default": false
+        },
+        "deletedAt": {
+          "type": "Date",
+          "required": false,
+          "default": null
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "AudioCompletion": {
+      "collection": "audiocompletions",
+      "timestamps": false,
+      "fields": {
+        "userId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "User"
+        },
+        "audioId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "AudioFile"
+        },
+        "date": {
+          "type": "Date",
+          "required": true
+        },
+        "scheduleId": {
+          "type": "ObjectId",
+          "required": false,
+          "ref": "Schedule",
+          "default": null
+        },
+        "autorun": {
+          "type": "Boolean",
+          "required": false,
+          "default": false
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "Coupon": {
+      "collection": "coupons",
+      "timestamps": true,
+      "fields": {
+        "couponCode": {
+          "type": "String",
+          "required": true,
+          "unique": true
+        },
+        "description": {
+          "type": "String",
+          "required": false
+        },
+        "discountType": {
+          "type": "String",
+          "required": true,
+          "enum": [
+            "fixed",
+            "percentage"
+          ]
+        },
+        "discountValue": {
+          "type": "Number",
+          "required": true
+        },
+        "isActive": {
+          "type": "Boolean",
+          "required": false,
+          "default": true
+        },
+        "expiryDate": {
+          "type": "Date",
+          "required": false
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "GlassSize": {
+      "collection": "glasssizes",
+      "timestamps": true,
+      "fields": {
+        "name": {
+          "type": "String",
+          "required": true
+        },
+        "volume": {
+          "type": "Number",
+          "required": true
+        },
+        "unit": {
+          "type": "String",
+          "required": true,
+          "enum": [
+            "oz",
+            "ml"
+          ]
+        },
+        "deletedAt": {
+          "type": "Date",
+          "required": false,
+          "default": null
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "HydrationHistory": {
+      "collection": "hydrationhistories",
+      "timestamps": true,
+      "fields": {
+        "userId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "User"
+        },
+        "date": {
+          "type": "Date",
+          "required": true
+        },
+        "quantity": {
+          "type": "Number",
+          "required": false,
+          "default": 0
+        },
+        "unit": {
+          "type": "String",
+          "required": false,
+          "enum": [
+            "oz",
+            "ml"
+          ]
+        },
+        "glassSizeId": {
+          "type": "ObjectId",
+          "required": false,
+          "ref": "GlassSize",
+          "default": null
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "Journey": {
+      "collection": "journeys",
+      "timestamps": false,
+      "fields": {
+        "title": {
+          "type": "String",
+          "required": false
+        },
+        "slug": {
+          "type": "String",
+          "required": false,
+          "unique": true
+        },
+        "needOtherOption": {
+          "type": "Boolean",
+          "required": false,
+          "default": false
+        },
+        "maximumOption": {
+          "type": "Number",
+          "required": false,
+          "default": 1
+        },
+        "order": {
+          "type": "Number",
+          "required": false
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {},
+        "journeyOptions": {
+          "ref": "JourneyOption",
+          "localField": "_id",
+          "foreignField": "journeyId"
+        }
+      }
+    },
+    "JourneyOption": {
+      "collection": "journeyoptions",
+      "timestamps": true,
+      "fields": {
+        "journeyId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "Journey"
+        },
+        "option": {
+          "type": "String",
+          "required": true
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "NotificationSettings": {
+      "collection": "notificationsettings",
+      "timestamps": true,
+      "fields": {
+        "userId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "User",
+          "unique": true
+        },
+        "notificationStatus": {
+          "type": "Boolean",
+          "required": false,
+          "default": true
+        },
+        "deletedAt": {
+          "type": "Date",
+          "required": false,
+          "default": null
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "Package": {
+      "collection": "packages",
+      "timestamps": false,
+      "fields": {
+        "packageName": {
+          "type": "String",
+          "required": true
+        },
+        "price": {
+          "type": "Number",
+          "required": true
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "Subscription": {
+      "collection": "subscriptions",
+      "timestamps": true,
+      "fields": {
+        "userId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "User",
+          "unique": true
+        },
+        "packageId": {
+          "type": "ObjectId",
+          "required": false,
+          "ref": "Package"
+        },
+        "price": {
+          "type": "Number",
+          "required": false,
+          "default": 0
+        },
+        "discount": {
+          "type": "Number",
+          "required": false,
+          "default": 0
+        },
+        "total": {
+          "type": "Number",
+          "required": false,
+          "default": 0
+        },
+        "couponId": {
+          "type": "ObjectId",
+          "required": false,
+          "ref": "Coupon"
+        },
+        "subscriptionStatus": {
+          "type": "String",
+          "required": false,
+          "enum": [
+            "active",
+            "expired",
+            "cancelled"
+          ]
+        },
+        "paymentReference": {
+          "type": "String",
+          "required": false
+        },
+        "paymentDate": {
+          "type": "Date",
+          "required": false
+        },
+        "expirationDate": {
+          "type": "Date",
+          "required": false
+        },
+        "cancelDate": {
+          "type": "Date",
+          "required": false
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    },
+    "UserJourneyResponse": {
+      "collection": "userjourneyresponses",
+      "timestamps": true,
+      "fields": {
+        "userId": {
+          "type": "ObjectId",
+          "required": true,
+          "ref": "User"
+        },
+        "journeyDate": {
+          "type": "Date",
+          "required": true
+        },
+        "response": {
+          "type": "Array",
+          "required": true
+        },
+        "_id": {
+          "type": "ObjectId",
+          "required": false
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": false
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": false
+        },
+        "__v": {
+          "type": "Number",
+          "required": false
+        }
+      },
+      "virtuals": {
+        "id": {}
+      }
+    }
+  }
+}

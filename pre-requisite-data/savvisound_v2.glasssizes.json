@@ -1,0 +1,75 @@
+[{
+  "_id": {
+    "$oid": "697c3a25aa5e5f01f704dfc1"
+  },
+  "name": "Small",
+  "volume": 8,
+  "unit": "oz",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-01-30T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "697c3a25aa5e5f01f704dfc2"
+  },
+  "name": "Medium",
+  "volume": 12,
+  "unit": "oz",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-01-30T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "697c3a25aa5e5f01f704dfc3"
+  },
+  "name": "Large",
+  "volume": 16,
+  "unit": "oz",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-01-30T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "697c3a25aa5e5f01f704dfc4"
+  },
+  "name": "Standard glass",
+  "volume": 250,
+  "unit": "ml",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-01-30T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "697c3a25aa5e5f01f704dfc5"
+  },
+  "name": "Water bottle",
+  "volume": 500,
+  "unit": "ml",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2025-01-30T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-30T00:00:00.000Z"
+  }
+}]

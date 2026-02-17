@@ -1,0 +1,14 @@
+[{
+  "_id": {
+    "$oid": "697cca00aa5e5f01f704dfcb"
+  },
+  "packageName": "monthly",
+  "price": 8.99
+},
+{
+  "_id": {
+    "$oid": "697cca00aa5e5f01f704dfcc"
+  },
+  "packageName": "yearly",
+  "price": 99.99
+}]
