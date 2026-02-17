@@ -9,3 +9,6 @@ db.sqlite3
 /logs/error.*
 /logs/error.log
 /data
+
+# Traefik certificates (contains sensitive data)
+traefik/acme.json
